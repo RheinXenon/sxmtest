@@ -327,7 +327,7 @@ function ClearContextDivider() {
 
 function ChatAction(props: {
   text: string;
-  icon: JSX.Element;
+  // icon: JSX.Element;
   onClick: () => void;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
@@ -446,44 +446,44 @@ export function ChatActions(props: {
         <ChatAction
           onClick={stopAll}
           text={Locale.Chat.InputActions.Stop}
-          icon={<StopIcon />}
+          // icon={<StopIcon />}
         />
       )}
       {!props.hitBottom && (
         <ChatAction
           onClick={props.scrollToBottom}
           text={Locale.Chat.InputActions.ToBottom}
-          icon={<BottomIcon />}
+          // icon={<BottomIcon />}
         />
       )}
       {props.hitBottom && (
         <ChatAction
           onClick={props.showPromptModal}
           text={Locale.Chat.InputActions.Settings}
-          icon={<SettingsIcon />}
+          // icon={<SettingsIcon />}
         />
       )}
 
       <ChatAction
         onClick={nextTheme}
         text={Locale.Chat.InputActions.Theme[theme]}
-        icon={
-          <>
-            {theme === Theme.Auto ? (
-              <AutoIcon />
-            ) : theme === Theme.Light ? (
-              <LightIcon />
-            ) : theme === Theme.Dark ? (
-              <DarkIcon />
-            ) : null}
-          </>
-        }
+        // icon={
+        //   <>
+        //     {theme === Theme.Auto ? (
+        //       <AutoIcon />
+        //     ) : theme === Theme.Light ? (
+        //       <LightIcon />
+        //     ) : theme === Theme.Dark ? (
+        //       <DarkIcon />
+        //     ) : null}
+        //   </>
+        // }
       />
 
       <ChatAction
         onClick={props.showPromptHints}
         text={Locale.Chat.InputActions.Prompt}
-        icon={<PromptIcon />}
+        // icon={<PromptIcon />}
       />
 
       <ChatAction
@@ -491,12 +491,12 @@ export function ChatActions(props: {
           navigate(Path.Masks);
         }}
         text={Locale.Chat.InputActions.Masks}
-        icon={<MaskIcon />}
+        // icon={<MaskIcon />}
       />
 
       <ChatAction
         text={Locale.Chat.InputActions.Clear}
-        icon={<BreakIcon />}
+        // icon={<BreakIcon />}
         onClick={() => {
           chatStore.updateCurrentSession((session) => {
             if (session.clearContextIndex === session.messages.length) {
@@ -512,7 +512,7 @@ export function ChatActions(props: {
       <ChatAction
         onClick={() => setShowModelSelector(true)}
         text={currentModel}
-        icon={<RobotIcon />}
+        // icon={<RobotIcon />}
       />
 
       {showModelSelector && (
