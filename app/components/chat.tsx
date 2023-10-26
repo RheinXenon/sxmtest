@@ -325,6 +325,37 @@ function ClearContextDivider() {
   );
 }
 
+function MyAction(props: {
+  text: string;
+}) {
+  const iconRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState({
+    full: 32,
+  });
+
+  function updateWidth() {
+    if (!textRef.current) return;
+    const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
+    const textWidth = getWidth(textRef.current);
+    setWidth({
+      full: textWidth,
+    });
+  }
+
+  return (
+    <div
+      className={`${styles["chat-input-action"]} clickable`}
+      onMouseEnter={updateWidth}
+      // onTouchStart={updateWidth}
+    >
+      <div ref={textRef}>
+        {props.text}
+      </div>
+    </div>
+  );
+}
+  
 function ChatAction(props: {
   text: string;
   icon: JSX.Element;
@@ -464,7 +495,7 @@ export function ChatActions(props: {
         />
       )}
 
-      <ChatAction
+      {/* <ChatAction
         onClick={nextTheme}
         text={Locale.Chat.InputActions.Theme[theme]}
         icon={
@@ -532,7 +563,20 @@ export function ChatActions(props: {
             showToast(s[0]);
           }}
         />
-      )}
+      )} */}
+
+      <MyAction
+        text={"测试文本"}
+      />
+      <MyAction
+        text={"税务服务"}
+      />
+      <MyAction
+        text={"会计指南"}
+      />
+      <MyAction
+        text={"这里可以继续补充"}
+      />
     </div>
   );
 }
@@ -882,27 +926,27 @@ function _Chat() {
       .concat(
         isLoading
           ? [
-              {
-                ...createMessage({
-                  role: "assistant",
-                  content: "……",
-                }),
-                preview: true,
-              },
-            ]
+            {
+              ...createMessage({
+                role: "assistant",
+                content: "……",
+              }),
+              preview: true,
+            },
+          ]
           : [],
       )
       .concat(
         userInput.length > 0 && config.sendPreviewBubble
           ? [
-              {
-                ...createMessage({
-                  role: "user",
-                  content: userInput,
-                }),
-                preview: true,
-              },
-            ]
+            {
+              ...createMessage({
+                role: "user",
+                content: userInput,
+              }),
+              preview: true,
+            },
+          ]
           : [],
       );
   }, [
@@ -995,7 +1039,7 @@ function _Chat() {
         if (payload.key || payload.url) {
           showConfirm(
             Locale.URLCommand.Settings +
-              `\n${JSON.stringify(payload, null, 4)}`,
+            `\n${JSON.stringify(payload, null, 4)}`,
           ).then((res) => {
             if (!res) return;
             if (payload.key) {
